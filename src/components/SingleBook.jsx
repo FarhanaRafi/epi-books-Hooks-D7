@@ -3,6 +3,7 @@ import { useState } from "react";
 // import CommentArea from "./CommentArea";
 
 const SingleBook = (props) => {
+  // eslint-disable-next-line no-unused-vars
   const [book, setBook] = useState(props.book);
   const [selected, setSelected] = useState(false);
   // const [asin, setAsin] = useState(props.book.asin);
