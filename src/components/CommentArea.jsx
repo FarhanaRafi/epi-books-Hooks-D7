@@ -1,22 +1,27 @@
-import { Component } from "react";
+import { Component, useEffect, useState } from "react";
 import AddComment from "./AddComment";
 import CommentsList from "./CommentsList";
 import { Spinner } from "react-bootstrap";
 
-class CommentArea extends Component {
-  state = {
-    title: this.props.title,
-    selectedBookAsin: this.props.selectedBook,
-    isLoading: true,
-    comments: [],
-  };
+const CommentArea = (props) => {
+  // state = {
+  //   title: this.props.title,
+  //   selectedBookAsin: this.props.selectedBook,
+  //   isLoading: true,
+  //   comments: [],
+  // };
 
-  fetchComments = async () => {
-    console.log(this.state.selectedBookAsin, "comment area");
+  const [title, setTitle] = useState(props.title);
+  const [selectedBookAsin, setSelectedBookAsin] = useState(props.selectedBook);
+  const [isLoading, setIsLoading] = useState(true);
+  const [comments, setComments] = useState([]);
+
+  const fetchComments = async () => {
+    console.log(selectedBookAsin, "comment area");
     try {
       let response = await fetch(
         "https://striveschool-api.herokuapp.com/api/comments/" +
-          this.state.selectedBookAsin,
+          selectedBookAsin,
 
         {
           headers: {
@@ -28,10 +33,12 @@ class CommentArea extends Component {
       if (response.ok) {
         let data = await response.json();
 
-        this.setState({
-          isLoading: false,
-          comments: data,
-        });
+        // this.setState({
+        //   isLoading: false,
+        //   comments: data,
+        // });
+        setIsLoading(false);
+        setComments(data);
       } else {
         alert("problem");
       }
@@ -40,42 +47,49 @@ class CommentArea extends Component {
     }
   };
 
-  componentDidMount() {
-    this.fetchComments();
-  }
+  // componentDidMount() {
+  //   this.fetchComments();
+  // }
 
-  componentDidUpdate(prevProps, prevState) {
-    // console.log(this.props, prevProps);
+  useEffect(() => {
+    fetchComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    if (prevState.selectedBookAsin !== this.props.book) {
-      this.setState({
-        selectedBookAsin: this.props.book,
-        title: this.props.title,
-      });
-      this.fetchComments();
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   // console.log(this.props, prevProps);
 
-  render() {
-    console.log(this.props, "selected");
-    return (
-      <div className="bg-white sticky-top">
-        {this.state.isLoading && (
-          <Spinner animation="border" variant="success" />
-        )}
-        <h5 className="mb-n5 text-center pt-2">
-          <strong>{this.state.title}</strong>
-        </h5>
-        <CommentsList
-          comments={this.state.comments}
-          asin={this.props.asin}
-          key={this.props.asin}
-          refresh={this.fetchComments}
-        />
-        <AddComment asin={this.props.book} refresh={this.fetchComments} />
-      </div>
-    );
-  }
-}
+  //   if (prevState.selectedBookAsin !== this.props.book) {
+  //     this.setState({
+  //       selectedBookAsin: this.props.book,
+  //       title: this.props.title,
+  //     });
+  //     this.fetchComments();
+  //   }
+  // }
+  useEffect(() => {
+    setSelectedBookAsin(props.book);
+    setTitle(props.title);
+    fetchComments();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.book]);
+
+  console.log(props, "selected");
+  return (
+    <div className="bg-white sticky-top">
+      {isLoading && <Spinner animation="border" variant="success" />}
+      <h5 className="mb-n5 text-center pt-2">
+        <strong>{title}</strong>
+      </h5>
+      <CommentsList
+        comments={comments}
+        asin={props.asin}
+        key={props.asin}
+        refresh={fetchComments}
+      />
+      <AddComment asin={props.book} refresh={fetchComments} />
+    </div>
+  );
+};
 
 export default CommentArea;

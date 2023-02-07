@@ -8,51 +8,46 @@ import { Container, Row, Col } from "react-bootstrap";
 // import AllTheBooks from "./components/AllTheBooks";
 import BookList from "./components/BookList";
 import CommentArea from "./components/CommentArea";
-import { Component } from "react";
+import { useState } from "react";
 
-class App extends Component {
-  state = {
-    review: {
-      comment: "",
-      rate: 1,
-      elementId: this.props.asin,
-    },
-    title: null,
-    selectedBook: null,
-  };
+const App = (props) => {
+  const [review, setReview] = useState({
+    comment: "",
+    rate: 1,
+    elementId: props.asin,
+  });
+  const [title, setTitle] = useState(null);
+  const [selectedBook, setSelectedBook] = useState(null);
 
-  changeAppState = (book) => {
+  const changeAppState = (book) => {
     console.log(book);
-    this.setState({ review: book, selectedBook: book.asin, title: book.title });
+    setReview(book);
+    setSelectedBook(book.asin);
+    setTitle(book.title);
   };
 
-  render() {
-    return (
-      <div className="body-container">
-        <MyNav genre="Fantasy" />
-        <Welcome />
-        <Container>
-          <Row>
-            <Col xs={9}>
-              <BookList
-                selectedValueFromApp={this.state.review.elementId}
-                selectBook={this.changeAppState}
-              />
-            </Col>
-            <Col xs={3} className="mt-5 form-container">
-              <CommentArea
-                title={this.state.title}
-                book={this.state.selectedBook}
-              />
-            </Col>
-            {/* <AllTheBooks /> 
+  return (
+    <div className="body-container">
+      <MyNav genre="Fantasy" />
+      <Welcome />
+      <Container>
+        <Row>
+          <Col xs={9}>
+            <BookList
+              selectedValueFromApp={review.elementId}
+              selectBook={changeAppState}
+            />
+          </Col>
+          <Col xs={3} className="mt-5 form-container">
+            <CommentArea title={title} book={selectedBook} />
+          </Col>
+          {/* <AllTheBooks /> 
           asin={this.state.asin}*/}
-          </Row>
-        </Container>
-        <MyFooter />
-      </div>
-    );
-  }
-}
+        </Row>
+      </Container>
+      <MyFooter />
+    </div>
+  );
+};
 
 export default App;

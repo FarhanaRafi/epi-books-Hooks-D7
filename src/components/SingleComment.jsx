@@ -5,8 +5,8 @@ import StarRatings from "react-star-ratings";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-class SingleComment extends Component {
-  deleteComment = async (commentId) => {
+const SingleComment = (props) => {
+  const deleteComment = async (commentId) => {
     let res = await fetch(
       "https://striveschool-api.herokuapp.com/api/comments/" + commentId,
 
@@ -23,40 +23,38 @@ class SingleComment extends Component {
       toast.error("Something went wrong");
     } else {
       toast.success("Deleted successfully");
-      this.props.refresh();
+      props.refresh();
     }
   };
-  render() {
-    return (
-      <>
-        <ToastContainer className="mt-5" />
-        <ListGroup.Item key={this.props.comment._id}>
-          <strong className="text-danger">{this.props.comment.author}</strong>{" "}
-          <br />
-          {this.props.comment.comment}
-          <br></br>
-          {/* Rating: {this.props.comment.rate} */}
-          <StarRatings
-            rating={this.props.comment.rate}
-            numberOfStars={5}
-            name="rating"
-            starDimension="15px"
-            starRatedColor="red"
-          />
-          <Button
-            variant="light"
-            className="ml-5"
-            onClick={(e) => {
-              e.preventDefault();
-              this.deleteComment(this.props.comment._id);
-            }}
-          >
-            <AiFillDelete />
-          </Button>
-        </ListGroup.Item>
-      </>
-    );
-  }
-}
+
+  return (
+    <>
+      <ToastContainer className="mt-5" />
+      <ListGroup.Item key={props.comment._id}>
+        <strong className="text-danger">{props.comment.author}</strong> <br />
+        {props.comment.comment}
+        <br></br>
+        {/* Rating: {this.props.comment.rate} */}
+        <StarRatings
+          rating={props.comment.rate}
+          numberOfStars={5}
+          name="rating"
+          starDimension="15px"
+          starRatedColor="red"
+        />
+        <Button
+          variant="light"
+          className="ml-5"
+          onClick={(e) => {
+            e.preventDefault();
+            deleteComment(props.comment._id);
+          }}
+        >
+          <AiFillDelete />
+        </Button>
+      </ListGroup.Item>
+    </>
+  );
+};
 
 export default SingleComment;
