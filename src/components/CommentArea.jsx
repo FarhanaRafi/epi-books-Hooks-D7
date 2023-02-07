@@ -1,16 +1,9 @@
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AddComment from "./AddComment";
 import CommentsList from "./CommentsList";
 import { Spinner } from "react-bootstrap";
 
 const CommentArea = (props) => {
-  // state = {
-  //   title: this.props.title,
-  //   selectedBookAsin: this.props.selectedBook,
-  //   isLoading: true,
-  //   comments: [],
-  // };
-
   const [title, setTitle] = useState(props.title);
   const [selectedBookAsin, setSelectedBookAsin] = useState(props.selectedBook);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,11 +25,6 @@ const CommentArea = (props) => {
       );
       if (response.ok) {
         let data = await response.json();
-
-        // this.setState({
-        //   isLoading: false,
-        //   comments: data,
-        // });
         setIsLoading(false);
         setComments(data);
       } else {
@@ -46,10 +34,6 @@ const CommentArea = (props) => {
       console.log(err);
     }
   };
-
-  // componentDidMount() {
-  //   this.fetchComments();
-  // }
 
   useEffect(() => {
     fetchComments();

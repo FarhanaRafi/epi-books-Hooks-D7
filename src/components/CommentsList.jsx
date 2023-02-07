@@ -3,15 +3,10 @@ import { ListGroup, Alert } from "react-bootstrap";
 import SingleComment from "./SingleComment";
 
 const CommentsList = (props) => {
-  // state = {
-  //   comments: this.props.comments,
-  //   elementId: this.props.asin,
-  //   isLoading: true,
-  //   isError: false,
-  // };
-  const [comments, setComments] = useState(props.comments);
-  const [elementId, setElementId] = useState(props.asin);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [comments, setComments] = useState(props.comments);
+  // const [elementId, setElementId] = useState(props.asin);
+  // const [isLoading, setIsLoading] = useState(true);
+  // eslint-disable-next-line no-unused-vars
   const [isError, setIsError] = useState(false);
 
   return (

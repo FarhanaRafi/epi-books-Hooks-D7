@@ -4,14 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddComment = (props) => {
-  // state = {
-  //   review: {
-  //     comment: "",
-  //     rate: 1,
-  //     elementId: this.props.asin,
-  //   },
-  // };
-
   const [review, setReview] = useState({
     comment: "",
     rate: 1,
@@ -97,12 +89,6 @@ const AddComment = (props) => {
             onChange={(e) => {
               console.log(e, "event");
               e.preventDefault();
-              // this.setState({
-              //   review: {
-              //     ...this.state.review,
-              //     comment: e.target.value,
-              //   },
-              // });
               setReview({
                 ...review,
                 comment: e.target.value,
@@ -115,7 +101,6 @@ const AddComment = (props) => {
           <Form.Control
             className="bg-secondary text-white"
             as="select"
-            // value={this.props.selectedValueFromApp}
             value={review.rate}
             onChange={(e) => {
               e.preventDefault();
@@ -123,12 +108,6 @@ const AddComment = (props) => {
                 ...review,
                 rate: e.target.value,
               });
-              // this.setState({
-              //   review: {
-              //     ...this.state.review,
-              //     rate: e.target.value,
-              //   },
-              // });
             }}
           >
             <option>1</option>

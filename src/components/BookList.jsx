@@ -12,7 +12,6 @@ const BookList = (props) => {
     let booksFiltered = items.filter((item) => {
       return item.title.toLowerCase().includes(query.toLowerCase());
     });
-    // this.setState({ books: booksFiltered });
     setBooks(booksFiltered);
   };
 
@@ -31,7 +30,6 @@ const BookList = (props) => {
             onChange={(e) => {
               e.preventDefault();
               console.log(e.target.value);
-              // this.setState({ query: e.target.value });
               setQuery(e.target.value);
             }}
           />

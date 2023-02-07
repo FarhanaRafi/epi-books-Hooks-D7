@@ -1,19 +1,12 @@
 import { Card, Container, CardDeck } from "react-bootstrap";
-import { Component, useState } from "react";
+import { useState } from "react";
 // import CommentArea from "./CommentArea";
 
 const SingleBook = (props) => {
-  // state = {
-  //   book: this.props.book,
-  //   selected: false,
-  //   asin: this.props.book.asin,
-  //   isLoading: true,
-  // };
-
   const [book, setBook] = useState(props.book);
   const [selected, setSelected] = useState(false);
-  const [asin, setAsin] = useState(props.book.asin);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [asin, setAsin] = useState(props.book.asin);
+  // const [isLoading, setIsLoading] = useState(true);
 
   return (
     <Container>
@@ -21,15 +14,9 @@ const SingleBook = (props) => {
         <Card
           onClick={(e) => {
             if (selected === true) {
-              // this.setState({
-              //   selected: false,
-              // });
               setSelected(false);
               e.target.classList.remove("selected");
             } else {
-              // this.setState({
-              //   selected: true,
-              // });
               setSelected(true);
               e.target.classList.add("selected");
             }

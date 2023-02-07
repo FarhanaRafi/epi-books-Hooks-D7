@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { ListGroup, Button } from "react-bootstrap";
 import { AiFillDelete } from "react-icons/ai";
 import StarRatings from "react-star-ratings";
