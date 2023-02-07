@@ -1,0 +1,33 @@
+.body-container{
+ background-image: url("http://unblast.com/wp-content/uploads/2020/05/Light-Wood-Background-Texture-5.jpg");
+}
+
+.book-title{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.welcome1{
+  height: 60vh;
+}
+
+.heading{
+  color: brown;
+}
+
+.card-hover:hover{
+  transform: scale(1.1);
+  transition: 200ms ease;
+}
+
+.selected{
+background-color: bisque;
+
+}
+
+.review{
+  margin-top: 50%;
+
+}
